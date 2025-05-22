@@ -1,5 +1,40 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Agensight Evaluation System"
 ---
 
+## Introduction
+
+The Agensight Evaluation System is designed to provide comprehensive evaluations of AI model outputs, focusing on code generation, technical support, and tool usage scenarios. This system helps ensure that AI models perform accurately and efficiently across various tasks.
+
+## Core Evaluations
+
+### 1.  GEval
+
+G-Eval is a framework that uses LLM-as-a-judge with chain-of-thoughts (CoT) to evaluate LLM outputs based on **ANY** custom criteria. and is capable of evaluating almost any use case with human-like accuracy.
+
+**How to Use**:
+
+- **Metric**: GEvalEvaluator
+
+
+- **Test Case**: ModelTestCase
+
+  ```python
+    from agensight.eval.metrics import GEvalEvaluator
+    from agensight.eval.test_case import ModelTestCase
+  
+    correctness_metric = GEvalEvaluator(
+        name="Code Correctness",
+        criteria="Evaluate whether the generated code correctly implements the specified requirements.",
+        threshold=0.8
+    )
+  
+    test_case = ModelTestCase(
+        input="Write a function to add two numbers.",
+        actual_output="def add(a, b): return a + b",
+        expected_output="A function that correctly adds two numbers."
+    )
+  
+    correctness_metric.measure(test_case)
+    print(correctness_metric.score, correctness_metric.reason)
+  ```
